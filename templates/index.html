@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; connect-src 'self'">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="static/css/bootstrap.min.css">
+        <title>4chan Monitoring</title>
+    </head>
+    <body role="document">
+        <div class="container">
+            <h1>Thread to monitor</h1>
+            {% if json %}
+            <form id="monitor_json" role="form" class="col-md-8">
+            {% else %}
+            <form id="monitor" role="form" class="col-md-8" method="post">
+            {% endif %}
+                <div class="form-group">
+                    <label for="url">URL:</label>
+                    <input id="url" name="url" class="form-control" type="text" autofocus onfocus="this.select()">
+                </div>
+                <div class="form-group">
+                    <label for="pass">Password:</label>
+                    <input id="password" name="password" class="form-control" type="password">
+                </div>
+                <button type="submit" class="btn btn-default">Monitor!</button>
+                <div id="fail" class="hidden alert alert-warning" role="alert">
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    Error with request.
+                </div>
+                <div id="success" class="hidden alert alert-success" role="alert">
+                    <button type="button" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    Success.
+                </div>
+            </form>
+        </div>
+        <script type="text/javascript" src="static/js/lib/jquery.min.js"></script>
+        <script type="text/javascript" src="static/js/index.js"></script>
+    </body>
+</html>

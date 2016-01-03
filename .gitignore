@@ -1,0 +1,6 @@
+__pycache__
+tmp
+app/platforms
+app/plugins
+*.sqlite
+config.py
