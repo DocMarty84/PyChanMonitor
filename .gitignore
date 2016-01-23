@@ -1,5 +1,6 @@
 __pycache__
 tmp
+venv
 app/platforms
 app/plugins
 *.sqlite
