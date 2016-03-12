@@ -1,12 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.fourchandownload.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>4chanDownload</name>
-    <description>
-        A sample Apache Cordova application that responds to the deviceready event.
-    </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
-    </author>
+<widget id="com.pychandownload.app" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>PyChanDownload</name>
+    <description>Sends URL to monitor to PyChanMonitor</description>
+    <author>NM</author>
     <content src="index.html" />
     <icon src="www/static/img/logo.png" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
@@ -18,6 +14,13 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <platform name="android">
+        <icon src="www/static/img/logo-ldpi.png" density="ldpi" />
+        <icon src="www/static/img/logo-mdpi.png" density="mdpi" />
+        <icon src="www/static/img/logo-tvdpi.png" density="tvdpi" />
+        <icon src="www/static/img/logo-hdpi.png" density="hdpi" />
+        <icon src="www/static/img/logo-xhdpi.png" density="xhdpi" />
+        <icon src="www/static/img/logo-xxhdpi.png" density="xxhdpi" />
+        <icon src="www/static/img/logo-xxxhdpi.png" density="xxxhdpi" />
         <allow-intent href="market:*" />
     </platform>
     <platform name="ios">
