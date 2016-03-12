@@ -3,5 +3,7 @@ tmp
 venv
 app/platforms
 app/plugins
-*.sqlite
 config.py
+config.yml
+*.sqlite
+*.sqlite-journal

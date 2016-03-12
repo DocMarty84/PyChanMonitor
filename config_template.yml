@@ -1,0 +1,10 @@
+db:
+    name: 'pychanmonitor.sqlite'
+    max_age_days: 1
+down:
+    save_path: 'tmp'
+    max_dl: 20
+server:
+    password: ''
+    port: 0
+    interface: '0.0.0.0'

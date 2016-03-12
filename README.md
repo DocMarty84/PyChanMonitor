@@ -1,19 +1,19 @@
-# 4chan-download
+# PyChanMonitor
+
+PyChanMonitor is an application which allows you to monitor 4Chan threads and download the content.
 
 ## Server application
 
 ### Requirements
 
-The server requires Python 3 (tested on version 3.4), and the 'non-usual' following modules:
-- SQLAlchemy
-- SQLite
-- Flask
-- Flask JSON-RPC (https://github.com/cenobites/flask-jsonrpc, available with `pip`)
+PyChanMonitor requires Python 3 (tested on version 3.4). Additional required pakages can be
+installed with [pip](https://pip.pypa.io/): `pip3 install -r requirements.txt`
+Note that `YAML` might require additional libraries to be compiled.
 
 ### Configuration and use
 
-The configuration must be done through a `config.py` file. A template is provided
-(`config_template.py`), simply copy-paste to `config.py`, and fill in missing data.
+The configuration must be done through a `config.yml` file. A template is provided
+(`config_template.yml`), simply copy-paste to `config.yml`, and fill in missing data.
 
 The server application is split in two parts, a crawler (`main.py`) and a web server (`server.py`).
 To use:
