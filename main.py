@@ -4,14 +4,18 @@
 from base.downloader import DownloaderBase
 
 import getopt
-import logging as l
+import logging
+import logging.handlers
 import sys
 
-l.basicConfig(level=l.DEBUG)
+LOG_FILENAME = 'pychanmonitor.log'
+
+l = logging.getLogger(__name__)
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "amvf:d", ["all", "monitor", "clean", "follow", "debug"])
+        opts, args = getopt.getopt(
+            argv, "amvf:d", ["all", "monitor", "clean", "follow", "debug", "log="])
 
     except getopt.GetoptError:
         l.critical("Incorrect parameters. Exiting...")
@@ -20,6 +24,7 @@ def main(argv):
     # Parse arguments
     do_monitor = do_debug = do_clean = False
     board = thread = ''
+    loglevel = logging.INFO
     for opt, arg in opts:
         if opt in ['-a', '--all']:
             do_monitor = do_clean = True
@@ -34,6 +39,20 @@ def main(argv):
             title = data[6] if len(data) >= 7 else ''
         elif opt in ['-d', '--debug']:
             do_debug = True
+        elif opt in ['--log']:
+            loglevel_num = getattr(logging, arg.upper(), None)
+            if isinstance(loglevel_num, int):
+                loglevel = loglevel_num
+
+    # Logging stuff
+    f = logging.Formatter("%(asctime)s:%(name)s:%(levelname)s:%(message)s")
+    fh = logging.handlers.RotatingFileHandler(LOG_FILENAME, maxBytes=10485760, backupCount=5)
+    fh.setLevel(loglevel)
+    fh.setFormatter(f)
+    sh = logging.StreamHandler()
+    sh.setLevel(loglevel)
+    sh.setFormatter(f)
+    logging.basicConfig(level=loglevel, handlers=[fh, sh])
 
     down = DownloaderBase()
     if board and thread:

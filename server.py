@@ -3,11 +3,13 @@
 
 from base.downloader import DownloaderBase
 
-import logging as l
+import logging
+import logging.handlers
 from flask import Flask, render_template, request, jsonify
 
-l.basicConfig(level=l.DEBUG)
+LOG_FILENAME = 'pychanmonitor.log'
 
+l = logging.getLogger(__name__)
 app = Flask(__name__) # Flask application
 
 
@@ -68,6 +70,17 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
+    # Logging stuff
+    loglevel = logging.WARNING
+    f = logging.Formatter("%(asctime)s:%(name)s:%(levelname)s:%(message)s")
+    fh = logging.handlers.RotatingFileHandler(LOG_FILENAME, maxBytes=10485760, backupCount=5)
+    fh.setLevel(loglevel)
+    fh.setFormatter(f)
+    sh = logging.StreamHandler()
+    sh.setLevel(loglevel)
+    sh.setFormatter(f)
+    logging.basicConfig(level=loglevel, handlers=[fh, sh])
+
     # Load configration
     down = DownloaderBase()
     app.run(host=down.conf['server']['interface'], port=down.conf['server']['port'], debug=True)

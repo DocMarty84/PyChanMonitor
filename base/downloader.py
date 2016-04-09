@@ -5,7 +5,7 @@ from base.db import RssDB, Thread
 
 import datetime
 import json
-import logging as l
+import logging
 from multiprocessing import Pool
 import os
 import re
@@ -13,6 +13,8 @@ import requests
 import yaml
 
 ROOT_PATH = os.path.dirname(os.path.realpath(__file__)) + os.sep + '..' + os.sep
+
+l = logging.getLogger(__name__)
 
 def download_mp(p, save_path, http_session):
     # Create necessary directory

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import logging as l
+import logging
 import os
 
 from sqlalchemy import create_engine
@@ -12,6 +12,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+l = logging.getLogger(__name__)
 
 class Thread(Base):
     __tablename__ = 'thread'
