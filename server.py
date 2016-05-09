@@ -42,31 +42,29 @@ app = Flask(__name__) # Flask application
 #
 #     down_route.add_thread(board, thread, com=title)
 #     return True
+#
+# @app.route('/json')
+# def index_json():
+#     return render_template('index.html', json=True)
 
-@app.route('/add_url', methods=['POST'])
-def add_url():
-    down_route = DownloaderBase()
-    if request.form['password'] != down_route.conf['server']['password']:
-        return jsonify(result=False)
-
-    try:
-        data = request.form['url'].split('/')
-        board = data[3]
-        thread = int(data[5])
-        title = data[6] if len(data) >= 7 else ''
-
-        down_route.add_thread(board, thread, com=title)
-    except Exception as e:
-        return jsonify(result=False)
-
-    return jsonify(result=True)
-
-@app.route('/json')
-def index_json():
-    return render_template('index.html', json=True)
-
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == 'POST':
+        down_route = DownloaderBase()
+        if request.form['password'] != down_route.conf['server']['password']:
+            return jsonify(result=False)
+
+        try:
+            data = request.form['url'].split('/')
+            board = data[3]
+            thread = int(data[5])
+            title = data[6] if len(data) >= 7 else ''
+
+            down_route.add_thread(board, thread, com=title)
+        except Exception as e:
+            return jsonify(result=False)
+
+        return jsonify(result=True)
     return render_template('index.html')
 
 if __name__ == '__main__':

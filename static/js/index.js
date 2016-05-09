@@ -67,7 +67,7 @@ var app = {
         var data = {};
         data.url = $("#url").val();
         data.password = $("#password").val();
-        var server_endpoint = "/add_url";
+        var server_endpoint = "/";
 
         $.post(server_endpoint, data).then(function(p) {
             self.showAlert(p);
