@@ -4,6 +4,7 @@
 from base.db import RssDB, Thread
 
 import datetime
+import errno
 import json
 import logging
 from multiprocessing import Pool
@@ -15,6 +16,22 @@ import yaml
 ROOT_PATH = os.path.dirname(os.path.realpath(__file__)) + os.sep + '..' + os.sep
 
 l = logging.getLogger(__name__)
+
+def dict_merge(dct, merge_dct):
+    """ Recursive dict merge. Inspired by :meth:``dict.update()``, instead of
+    updating only top-level keys, dict_merge recurses down into dicts nested
+    to an arbitrary depth, updating keys. The ``merge_dct`` is merged into
+    ``dct``.
+
+    :param dct: dict onto which the merge is executed
+    :param merge_dct: dct merged into dct
+    :return: None
+    """
+    for k, v in merge_dct.items():
+        if k in dct and isinstance(dct[k], dict) and isinstance(merge_dct[k], dict):
+            dict_merge(dct[k], merge_dct[k])
+        else:
+            dct[k] = merge_dct[k]
 
 def download_mp(p, save_path, http_session):
     # Create necessary directory
@@ -62,6 +79,31 @@ class DownloaderBase():
             conf = yaml.load(f)
 
             conf_final = conf.copy()
+            conf_final['db']['uri'] = 'sqlite:///' + ROOT_PATH + conf_final['db']['name']
+
+            return conf_final
+
+    def _load_config(self):
+        f_path_tmpl = ROOT_PATH + "config_template.yml"
+        f_path_user = ROOT_PATH + "config.yml"
+
+        # Create config.yml if it doesn't exist
+        try:
+            with open(f_path_user, 'x') as f_user:
+                pass
+        except OSError as e:
+            if e.errno != errno.EEXIST:
+                raise
+
+        # Parse files "config_template.yml" and "config.yml"
+        with open(f_path_tmpl, "r") as f_tmpl, open(f_path_user, "r") as f_user:
+            # Load template config and override with user values
+            conf = yaml.load(f_tmpl)
+            dict_merge(conf, yaml.load(f_user) or {})
+
+            conf_final = conf.copy()
+
+            # Add path to filenames
             conf_final['db']['uri'] = 'sqlite:///' + ROOT_PATH + conf_final['db']['name']
 
             return conf_final
