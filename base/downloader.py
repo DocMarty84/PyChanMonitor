@@ -74,16 +74,6 @@ class DownloaderBase():
     ################################################################################################
 
     def _load_config(self):
-        f_path = ROOT_PATH + "config.yml"
-        with open(f_path, "r") as f:
-            conf = yaml.load(f)
-
-            conf_final = conf.copy()
-            conf_final['db']['uri'] = 'sqlite:///' + ROOT_PATH + conf_final['db']['name']
-
-            return conf_final
-
-    def _load_config(self):
         f_path_tmpl = ROOT_PATH + "config_template.yml"
         f_path_user = ROOT_PATH + "config.yml"
 
