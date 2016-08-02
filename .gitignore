@@ -3,7 +3,6 @@ tmp
 venv
 app/platforms
 app/plugins
-config.py
 config.yml
 *.log
 *.sqlite

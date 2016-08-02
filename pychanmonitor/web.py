@@ -7,13 +7,14 @@ import os
 
 from flask import Flask, render_template, request, jsonify
 
+from config import Config
 from downloader import DownloaderBase
 
 LOG_FILENAME = '..' + os.sep + 'pychanmonitor.log'
 
 l = logging.getLogger(__name__)
 app = Flask(__name__) # Flask application
-
+conf = Config()
 
 ####################################################################################################
 ####################################################################################################
@@ -52,8 +53,7 @@ app = Flask(__name__) # Flask application
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        down_route = DownloaderBase()
-        if request.form['password'] != down_route.conf['server']['password']:
+        if request.form['password'] != conf.conf['server']['password']:
             return jsonify(result=False)
 
         try:
@@ -62,7 +62,9 @@ def index():
             thread = int(data[5])
             title = data[6] if len(data) >= 7 else ''
 
-            down_route.add_thread(board, thread, com=title)
+            # SQLite must be thread-safe, so we cannot declare a global variable
+            down = DownloaderBase(conf.conf)
+            down.add_thread(board, thread, com=title)
         except Exception as e:
             return jsonify(result=False)
 
@@ -82,5 +84,4 @@ if __name__ == '__main__':
     logging.basicConfig(level=loglevel, handlers=[fh, sh])
 
     # Load configration
-    down = DownloaderBase()
-    app.run(host=down.conf['server']['interface'], port=down.conf['server']['port'], debug=True)
+    app.run(host=conf.conf['server']['interface'], port=conf.conf['server']['port'], debug=True)

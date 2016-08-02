@@ -7,6 +7,7 @@ import logging.handlers
 import os
 import sys
 
+from config import Config
 from downloader import DownloaderBase
 
 LOG_FILENAME = '..' + os.sep + 'pychanmonitor.log'
@@ -55,7 +56,7 @@ def main(argv):
     sh.setFormatter(f)
     logging.basicConfig(level=loglevel, handlers=[fh, sh])
 
-    down = DownloaderBase()
+    down = DownloaderBase(Config().conf)
     if board and thread:
         down.add_thread(board, thread, com=title)
 
