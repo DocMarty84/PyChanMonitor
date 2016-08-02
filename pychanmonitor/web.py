@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from downloader import DownloaderBase
-
 import logging
 import logging.handlers
 import os
+
 from flask import Flask, render_template, request, jsonify
+
+from downloader import DownloaderBase
 
 LOG_FILENAME = '..' + os.sep + 'pychanmonitor.log'
 

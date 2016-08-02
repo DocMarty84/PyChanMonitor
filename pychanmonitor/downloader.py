@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from db import RssDB, Thread
-
 import datetime
 import errno
 import json
@@ -12,6 +10,8 @@ import os
 import re
 import requests
 import yaml
+
+from db import RssDB, Thread
 
 ROOT_PATH = os.path.dirname(os.path.realpath(__file__)) + os.sep + '..' + os.sep
 

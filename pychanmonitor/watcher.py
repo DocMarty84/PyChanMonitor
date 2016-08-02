@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from downloader import DownloaderBase
-
 import getopt
 import logging
 import logging.handlers
 import os
 import sys
+
+from downloader import DownloaderBase
 
 LOG_FILENAME = '..' + os.sep + 'pychanmonitor.log'
 
