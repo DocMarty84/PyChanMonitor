@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from base.db import RssDB, Thread
+from db import RssDB, Thread
 
 import datetime
 import errno

@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from base.downloader import DownloaderBase
+from downloader import DownloaderBase
 
 import logging
 import logging.handlers
+import os
 from flask import Flask, render_template, request, jsonify
 
-LOG_FILENAME = 'pychanmonitor.log'
+LOG_FILENAME = '..' + os.sep + 'pychanmonitor.log'
 
 l = logging.getLogger(__name__)
 app = Flask(__name__) # Flask application
