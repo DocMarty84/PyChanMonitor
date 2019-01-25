@@ -1,9 +1,10 @@
 __pycache__
-tmp
-venv
-app/platforms
-app/plugins
-config.yml
 *.log
 *.sqlite
 *.sqlite-journal
+app/platforms
+app/plugins
+config.yml
+Pipfile*
+tmp
+venv
