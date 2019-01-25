@@ -52,6 +52,7 @@ conf = Config()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    pwd = request.args.get('pwd', '')
     if request.method == 'POST':
         if request.form['password'] != conf.conf['server']['password']:
             return jsonify(result=False)
@@ -69,7 +70,7 @@ def index():
             return jsonify(result=False)
 
         return jsonify(result=True)
-    return render_template('index.html')
+    return render_template('index.html', pwd=pwd)
 
 if __name__ == '__main__':
     # Logging stuff
