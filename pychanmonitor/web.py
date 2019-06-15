@@ -60,7 +60,7 @@ def index():
         try:
             data = request.form['url'].split('/')
             board = data[3]
-            thread = int(data[5])
+            thread = int(data[5].split('#')[0])
             title = data[6] if len(data) >= 7 else ''
 
             # SQLite must be thread-safe, so we cannot declare a global variable
