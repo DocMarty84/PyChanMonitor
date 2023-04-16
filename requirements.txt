@@ -3,7 +3,7 @@ Jinja2==2.10.1
 MarkupSafe==1.1.1
 PyYAML==5.1.1
 SQLAlchemy==1.3.4
-Werkzeug==0.15.4
+Werkzeug==2.2.3
 itsdangerous==1.1.0
 requests==2.22.0
 wheel==0.33.4
